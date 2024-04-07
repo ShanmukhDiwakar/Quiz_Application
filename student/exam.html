@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #121212; /* Dark background color */
+    color: #fff; /* Light text color */
+    margin: 0;
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #333; /* Dark container background color */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Light shadow */
+    display: flex;
+    flex-direction: column;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #fff; /* Light text color */
+  }
+
+  h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    display: inline; /* Ensure the question and time display are inline */
+    color: #fff; /* Light text color */
+  }
+
+  .question-section {
+    margin-bottom: 20px;
+    border: 2px solid #007bff; /* Blue border color */
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center; /* Align items vertically */
+    justify-content: space-between; /* Put space between items */
+    background-color: #444; /* Darker background color */
+  }
+
+  .timer {
+    font-size: 16px; /* Reduced font size */
+    border: 2px solid #ff0000; /* Red border color */
+    border-radius: 8px;
+    padding: 10px;
+    color: #fff; /* Light text color */
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  ul li {
+    margin-bottom: 5px;
+  }
+
+  .btn-container {
+    text-align: center;
+    margin-top: 10px; /* Add margin between options and buttons */
+    display: flex; /* Use flexbox layout */
+    justify-content: flex-start; /* Align items to the left */
+  }
+
+  .reset-btn {
+    font-size: 14px; /* Smaller font size */
+    color: #ff0000; /* Red color */
+    text-decoration: underline; /* Underline */
+    cursor: pointer;
+    border: none;
+    background-color: transparent; /* Transparent background */
+    margin-right: 10px; /* Add margin between buttons */
+    color: #fff; /* Light text color */
+  }
+
+  .reset-btn:focus {
+    outline: none;
+  }
+
+  .btn-container button {
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+    color: #fff; /* Light text color */
+  }
+
+  .btn-container button:focus {
+    outline: none;
+  }
+
+  .btn-container button#prevBtn {
+    background-color: #007bff;
+  }
+
+  .btn-container button#nextBtn {
+    background-color: #28a745;
+  }
+
+  /* Style for Submit Quiz button */
+  .submit-btn {
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: #28a745; /* Green background color */
+    color: #fff; /* White text color */
+    margin-top: 20px; /* Add margin from other buttons */
+    align-self: center; /* Center the button horizontally */
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Exam</h1>
+  <div id="questionContainer" class="question-section">
+    <h3 id="questionText"></h3>
+    <div class="timer">Time Remaining: <span id="timer">15:00</span></div>
+  </div>
+  <ul id="optionsContainer"></ul>
+  <div class="btn-container">
+    <button id="resetBtn" class="reset-btn" onclick="resetOptions()">Reset Options</button>
+    <button id="prevBtn" onclick="prevQuestion()">Previous</button>
+    <button id="nextBtn" onclick="nextQuestion()">Next</button>
+  </div>
+  <!-- Submit Quiz button -->
+  <button class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+</div>
+
+<script>
+  // Dummy data for demonstration purposes
+  const questions = [
+    {
+      question: " What does HTML stand for?",
+      options: ["Hyper Text Markup Language", "High Tech Markup Language", "Hyperlink Text Markup Language", "Home Tool Markup Language"],
+      correctAnswer: "Hyper Text Markup Language"
+    },
+    {
+      question: "Which technology is primarily responsible for the styling of web pages?",
+      options: ["JavaScript", "HTML", "CSS", "Python"],
+      correctAnswer: "CSS"
+    },
+    {
+      question: "Which programming language is mainly used for adding interactivity to websites?",
+      options: ["HTML", "CSS", "Python", "JavaScript"],
+      correctAnswer: "JavaScript"
+    },
+    {
+      question: "Which of the following is not a back-end programming language commonly used in web development?",
+      options: ["PHP", "HTML", "Ruby", "Java"],
+      correctAnswer: "HTML"
+    },
+    {
+      question: "Which HTML tag is used to create a hyperlink?",
+      options: ["{a}", "{link}", "{h1}", "{p}"],
+      correctAnswer: "{a}"
+    },
+
+  ];
+
+  let currentQuestionIndex = 0;
+  const questionText = document.getElementById('questionText');
+  const timerDisplay = document.getElementById('timer');
+  const optionsContainer = document.getElementById('optionsContainer');
+
+  function displayQuestion(questionIndex) {
+    const question = questions[questionIndex];
+    questionText.textContent = question.question;
+    timerDisplay.textContent = '15:00'; // Reset timer display
+    optionsContainer.innerHTML = question.options.map((option, index) => `
+      <li><input type="radio" name="option" value="${index}">${option}</li>
+    `).join('');
+  }
+
+  function resetOptions() {
+    const options = document.querySelectorAll("input[type='radio']");
+    options.forEach(option => option.checked = false);
+  }
+
+  function prevQuestion() {
+    if (currentQuestionIndex > 0) {
+      currentQuestionIndex--;
+      displayQuestion(currentQuestionIndex);
+    }
+  }
+
+  function nextQuestion() {
+    if (currentQuestionIndex < questions.length - 1) {
+      currentQuestionIndex++;
+      displayQuestion(currentQuestionIndex);
+    }
+  }
+
+  function submitQuiz() {
+    // Here you can add any additional logic related to submitting the quiz
+    alert("Quiz submitted successfully!");
+    // Redirect to quiz.html after displaying the alert
+    window.location.href = "quiz.html";
+  }
+
+  // Start the timer
+  let timer = 15 * 60; // 15 minutes in seconds
+  setInterval(() => {
+    const minutes = Math.floor(timer / 60);
+    const seconds = timer % 60;
+    timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    if (timer > 0) timer--;
+  }, 1000);
+
+  // Display the first question when the page loads
+  displayQuestion(currentQuestionIndex);
+</script>
+</body>
+</html>

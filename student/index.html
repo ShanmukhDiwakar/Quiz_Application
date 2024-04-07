@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Add 3D animation to the background */
+    body {
+      perspective: 1000px;
+      background-color: #232323; /* Dark background color */
+      font-family: Arial, sans-serif; /* Set a fallback font */
+      color: #fff; /* Set text color to white */
+      background-image: url("background.png");
+      background-size: cover;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-around; /* Center the content horizontally */
+      align-items: center; /* Center the content vertically */
+      height: 100vh; /* Ensure the container takes up the full height of the viewport */
+      flex-direction: row;
+      gap: 100px;
+    }
+
+    .sidebar {
+      width: 300px; /* Adjust as needed */
+      height: 250px;
+      background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white sidebar */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px; /* Add rounded corners */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add shadow */
+    }
+
+    header {
+      margin-left: 20px; /* Adjust to add space between sidebar and header */
+      opacity: 0; /* Hide header initially */
+      animation: fadeIn 1s ease forwards; /* Fade-in animation */
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    header, #content {
+      padding: 20px;
+    }
+
+    .hero-section-image {
+      width: 40%;
+      border-radius: 50px;
+    }
+
+    /* Increase button size */
+    .button button {
+      font-size: 18px;
+      padding: 10px 0;
+      width: 250px; /* Adjust the width of the buttons */
+      margin-bottom: 20px;
+      animation: bounce 1s ease infinite alternate; /* Bouncing animation */
+      transition: background-color 0.2s; /* Smooth transition for background color */
+      border: none; /* Remove button border */
+      border-radius: 5px; /* Add rounded corners */
+      cursor: pointer; /* Change cursor to pointer on hover */
+      color: #fff; /* Set text color */
+      background-color: #3caea3; /* Set default background color */
+    }
+
+    .button button:hover {
+      background-color: #88cbba; /* Change background color on hover */
+    }
+
+    @keyframes bounce {
+      to {
+        transform: translateY(-5px);
+      }
+    }
+
+    /* Style for profile button */
+    #profileBtn {
+      position: absolute; /* Position the profile button */
+      top: 40px; /* Distance from the top */
+      right: 20px; /* Distance from the right */
+      height: 60px; /* Reduce the height */
+      width: 70px; /* Reduce the width */
+      border-radius: 20%; /* Make it round */
+      transition: transform 0.2s; /* Add transition effect */
+    }
+
+    #profileBtn:hover {
+      transform: scale(1.1); /* Increase size slightly on hover */
+    }
+
+    /* Media queries for responsiveness */
+    @media only screen and (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .sidebar {
+        width: 80%;
+        margin-bottom: 20px;
+      }
+
+      .hero-section-image {
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <header>
+      <h1>Student Dashboard</h1>
+      <nav>
+        <ul>
+          <li><img src="profile.jpeg" alt="Profile Logo" id="profileBtn"></li>
+          <li><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+      
+    <!-- Content will be loaded dynamically here -->
+  </div>
+
+  <div class="container">
+    <img class="hero-section-image" src="hero-section-image-png.png">
+    <aside class="sidebar">
+      <div class="button">
+        <a href="quiz.html"><button id="quizBtn">Quiz</button></a>
+      </div>
+      <div class="button">
+        <a href="report.html"><button id="reportsBtn">Reports</button></a>
+      </div>
+    </aside>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // JavaScript function to redirect to profile.html when clicking on the profile logo
+    document.getElementById("profileBtn").addEventListener("click", function() {
+      window.location.href = "profile.html";
+    });
+
+    // JavaScript function to redirect to Welcome_Page.html when clicking on the logout button
+    document.getElementById("logoutBtn").addEventListener("click", function() {
+      window.location.href = "../Welcome_Page.html";
+    });
+  </script>
+</body>
+</html>
